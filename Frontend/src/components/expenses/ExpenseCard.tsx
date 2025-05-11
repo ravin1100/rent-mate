@@ -44,7 +44,7 @@ const ExpenseCard: React.FC<ExpenseCardProps> = ({
             <div className="text-sm text-gray-500 flex items-center">
               <span>Paid by {expense.payerName}</span>
               <span className="mx-2">•</span>
-              <span>{formatDate(expense.createdAt)}</span>
+              <span>{formatDate(expense.addedAt)}</span>
             </div>
           </div>
         </div>

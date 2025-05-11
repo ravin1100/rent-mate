@@ -18,7 +18,7 @@ const JoinHousehold: React.FC = () => {
 
     try {
       await joinHousehold(inviteCode);
-      navigate("/household/members");
+      window.location.href = '/dashboard';
     } catch (err: any) {
       setError(err.message || "Failed to join household");
     } finally {

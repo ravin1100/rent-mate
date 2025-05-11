@@ -18,7 +18,7 @@ const CreateHousehold: React.FC = () => {
 
     try {
       await createHousehold(name);
-      navigate("/household/members");
+      window.location.href = '/dashboard';
     } catch (err: any) {
       setError(err.message || "Failed to create household");
     } finally {

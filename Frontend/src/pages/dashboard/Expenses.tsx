@@ -1,3 +1,4 @@
+import { parseCustomDateString } from "../../utils/dateUtils";
 import React, { useState, useEffect } from "react";
 import { householdApi, useHousehold } from "../../contexts/HouseholdContext";
 import { useAuth } from "../../contexts/AuthContext";
@@ -225,7 +226,8 @@ const Expenses: React.FC = () => {
 
     // Filter by date range
     const dateFilter = getDateRangeFilter();
-    return dateFilter(new Date(expense.addedAt));
+    console.log('Expense for date filtering:', expense.id, expense.addedAt);
+    return dateFilter(parseCustomDateString(expense.addedAt));
   });
 
   const totalAmount = filteredExpenses.reduce(
