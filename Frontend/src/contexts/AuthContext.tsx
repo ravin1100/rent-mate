@@ -160,7 +160,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const logout = async () => {
     try {
       setLoading(true);
-      await authApi.post("api/auth/logout");
+      // await authApi.post("api/auth/logout");
       localStorage.removeItem("authToken");
       setUser(null);
     } catch (err: any) {

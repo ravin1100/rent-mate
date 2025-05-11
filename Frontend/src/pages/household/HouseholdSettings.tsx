@@ -27,6 +27,8 @@ const HouseholdSettings: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const navigate = useNavigate();
 
+  console.log(household,'household');
+
   useEffect(() => {
     if (household) {
       setHouseholdName(household.name);
