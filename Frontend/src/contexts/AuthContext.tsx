@@ -5,7 +5,7 @@ import { dummyUser } from "../data/dummyData";
 
 // Create a dedicated API instance for auth operations
 const authApi = axios.create({
-  baseURL: "http://192.168.1.8:8080",
+  baseURL: "https://rent-mate-api.duckdns.org",
   headers: {
     "Content-Type": "application/json",
   },
