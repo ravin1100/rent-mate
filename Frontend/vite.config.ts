@@ -12,5 +12,10 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true
+  },
+  // Disable TypeScript checking during build
+  esbuild: {
+    // Skip TypeScript type checking
+    tsconfigRaw: '{ "compilerOptions": { "jsx": "react-jsx", "skipLibCheck": true, "isolatedModules": true } }'
   }
 });

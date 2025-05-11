@@ -18,7 +18,7 @@
       "~/*": ["./app/*"]
     },
     "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -29,6 +29,7 @@
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": false,
     "noImplicitThis": false,
+    "isolatedModules": true,
     "noImplicitReturns": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false

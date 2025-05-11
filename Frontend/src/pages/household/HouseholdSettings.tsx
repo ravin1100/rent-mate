@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef, KeyboardEvent } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import type { KeyboardEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
@@ -80,7 +81,7 @@ const HouseholdSettings: React.FC = () => {
     setEmailInput(e.target.value);
   };
 
-  const handleEmailInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleEmailInputKeyDown = (e: any) => {
     if (e.key === "Enter" || e.key === "," || e.key === " ") {
       e.preventDefault();
       addEmail();

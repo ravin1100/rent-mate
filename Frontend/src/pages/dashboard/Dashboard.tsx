@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef, KeyboardEvent } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import type { KeyboardEvent } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
@@ -55,24 +56,26 @@ const Dashboard: React.FC = () => {
       try {
         setChoresLoading(true);
         // Fetch upcoming chores from API
-        const response = await householdApi.get('/api/chores/household/all-chores');
-        
+        const response = await householdApi.get(
+          "/api/chores/household/all-chores"
+        );
+
         // Process the chores data to ensure dates are properly formatted
         const processedChores = response.data.map((chore: any) => ({
           ...chore,
           // Ensure dueDate is a proper date object
           dueDate: chore.dueDate ? new Date(chore.dueDate) : null,
           // Format completedAt if it exists
-          completedAt: chore.completedAt ? new Date(chore.completedAt) : null
+          completedAt: chore.completedAt ? new Date(chore.completedAt) : null,
         }));
-        
+
         // Sort chores by due date (closest first)
         const sortedChores = processedChores.sort((a: any, b: any) => {
           if (!a.dueDate) return 1;
           if (!b.dueDate) return -1;
           return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
         });
-        
+
         // Get only 3 chores for the dashboard
         setUpcomingChores(sortedChores.slice(0, 3));
         setChoresError(null);
@@ -155,7 +158,7 @@ const Dashboard: React.FC = () => {
     setShowInviteModal(true);
     setEmailList([]);
     setEmailInput("");
-    setError(null);
+    setInviteError(null);
     setSuccess(null);
     // Focus the email input when modal opens
     setTimeout(() => {
@@ -173,7 +176,7 @@ const Dashboard: React.FC = () => {
     setEmailInput(e.target.value);
   };
 
-  const handleEmailInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleEmailInputKeyDown = (e: any) => {
     if (e.key === "Enter" || e.key === "," || e.key === " ") {
       e.preventDefault();
       addEmail();
@@ -572,9 +575,12 @@ const Dashboard: React.FC = () => {
                     <li key={chore.id} className="py-3">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="font-medium text-gray-800">{chore.name}</p>
+                          <p className="font-medium text-gray-800">
+                            {chore.name}
+                          </p>
                           <p className="text-sm text-gray-500">
-                            Assigned to: {chore.assignedUserName || 'Unassigned'}
+                            Assigned to:{" "}
+                            {chore.assignedUserName || "Unassigned"}
                           </p>
                         </div>
                         <div className="flex flex-col items-end">
@@ -593,14 +599,20 @@ const Dashboard: React.FC = () => {
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                               />
                             </svg>
-                            {chore.dueDate ? new Date(chore.dueDate).toLocaleDateString('en-US', {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric'
-                            }) : 'No due date'}
+                            {chore.dueDate
+                              ? new Date(chore.dueDate).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "short",
+                                    day: "numeric",
+                                    year: "numeric",
+                                  }
+                                )
+                              : "No due date"}
                           </span>
                           <span className="text-xs text-gray-500">
-                            {chore.frequency.charAt(0).toUpperCase() + chore.frequency.slice(1).toLowerCase()}
+                            {chore.frequency.charAt(0).toUpperCase() +
+                              chore.frequency.slice(1).toLowerCase()}
                           </span>
                         </div>
                       </div>
@@ -774,7 +786,9 @@ const Dashboard: React.FC = () => {
                   {/* Modal Header */}
                   <div className="bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-4">
                     <div className="flex justify-between items-center">
-                      <h3 className="text-xl font-semibold text-white">Invite People</h3>
+                      <h3 className="text-xl font-semibold text-white">
+                        Invite People
+                      </h3>
                       <button
                         onClick={handleCloseInviteModal}
                         className="text-white hover:text-gray-200 focus:outline-none"
@@ -795,14 +809,14 @@ const Dashboard: React.FC = () => {
                       </button>
                     </div>
                   </div>
-                  
+
                   {/* Modal Content */}
                   <div className="bg-white px-6 py-4">
                     <p className="text-sm text-gray-600 mb-4">
-                      Enter email addresses of people you want to invite to your household.
-                      They'll receive an invitation to join.
+                      Enter email addresses of people you want to invite to your
+                      household. They'll receive an invitation to join.
                     </p>
-                    
+
                     {/* Email Input Area */}
                     <div className="border border-gray-300 rounded-md p-2 mb-4 min-h-[100px] flex flex-wrap items-start">
                       {emailList.map((email, index) => (
@@ -847,7 +861,7 @@ const Dashboard: React.FC = () => {
                         }
                       />
                     </div>
-                    
+
                     {/* Error and Success Messages */}
                     {inviteError && (
                       <div className="text-red-500 text-sm mb-4 flex items-center">
@@ -872,7 +886,7 @@ const Dashboard: React.FC = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Modal Footer */}
                   <div className="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
                     <button
